@@ -157,7 +157,7 @@ public class ArtigoController {
 
     }
 
-    /* Notação para mepear o metodo como End-point DELETE para deletar um artigo, com o parametro vindo pelo URI*/
+    /* Notação para mapear o metodo como End-point DELETE para deletar um artigo, com o parametro vindo pelo URI*/
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         //Solicitado pesquisa da camada de serviço
