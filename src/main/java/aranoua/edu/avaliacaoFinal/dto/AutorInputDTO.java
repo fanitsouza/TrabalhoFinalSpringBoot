@@ -2,6 +2,7 @@ package aranoua.edu.avaliacaoFinal.dto;
 
 //-----------imports utilizados-------------------------------------------------
 import aranoua.edu.avaliacaoFinal.model.Autor;
+import aranoua.edu.avaliacaoFinal.repository.AfiliacaoRepository;
 //------------------------------------------------------------------------------
 
 //Define a classe AutorInputDTO
@@ -44,10 +45,10 @@ public class AutorInputDTO {
     }
 
     // Constroi e retorna um objeto do tipo Autor que será persistido no Banco
-    public Autor build(){
+    public Autor build(AfiliacaoRepository afiliacaoRepository){
         Autor autor = new Autor();
         autor.setNome(this.nome);
-        autor.setAfiliacao(this.afiliacao);
+        autor.setAfiliacao(afiliacaoRepository.findByName(this.afiliacao));
         return autor;
     }
 }

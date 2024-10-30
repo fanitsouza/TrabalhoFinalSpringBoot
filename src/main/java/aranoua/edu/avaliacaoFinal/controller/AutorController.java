@@ -35,7 +35,7 @@ public class AutorController {
         //Solicitado listagem da camada de serviço
         List <AutorOutputDTO> autores = autorService.lista();
 
-        //Verificação se a lista está avisa
+        //Verificação se a lista está vazia
         if (!autores.isEmpty()){
             //Retorna a lista e o status
             return new ResponseEntity<>(autores, HttpStatus.OK);
@@ -58,7 +58,7 @@ public class AutorController {
             //Construção de um objeto UriComponents, através do objeto uriComponentsBuilder
             UriComponents uriComponents = uriComponentsBuilder.path("/api/autor/{id}").buildAndExpand(autor.getId());
 
-            //Criando uma URI através do objeto uriComponents
+            //Criando uma URI através do objeto uriComponents, ou seja, converte o objeto uriComponents em URI
             URI uri = uriComponents.toUri();
 
             //Criação dos links de HATEOS, começando pelo link de listagem

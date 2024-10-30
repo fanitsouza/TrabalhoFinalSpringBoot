@@ -4,6 +4,7 @@ package aranoua.edu.avaliacaoFinal.service;
 import aranoua.edu.avaliacaoFinal.dto.AutorInputDTO;
 import aranoua.edu.avaliacaoFinal.dto.AutorOutputDTO;
 import aranoua.edu.avaliacaoFinal.model.Autor;
+import aranoua.edu.avaliacaoFinal.repository.AfiliacaoRepository;
 import aranoua.edu.avaliacaoFinal.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class AutorService {
     //Injeçao de uma instancia de AutorRepository na classe AutorService
     @Autowired
     private AutorRepository autorRepository;
+
+    @Autowired
+    private AfiliacaoRepository afiliacaoRepository;
 
     //Metodo que retorna uma lista de todos os autores
     public List<AutorOutputDTO> lista(){
@@ -56,7 +60,7 @@ public class AutorService {
     public AutorOutputDTO inserir(AutorInputDTO autorInputDTO){
         try {
             //criou um objeto autor a partir do inputDTO
-            Autor autor = autorInputDTO.build();
+            Autor autor = autorInputDTO.build(afiliacaoRepository);
 
             //Salvando e retorna o objeto salvo
             Autor autorInserido = autorRepository.save(autor);
@@ -82,7 +86,7 @@ public class AutorService {
                 //Define os novos valores a partir do autorInputDTO
                 Autor autor = autorAlterar.get();
                 autor.setNome(autorInputDTO.getNome());
-                autor.setAfiliacao(autorInputDTO.getAfiliacao());
+                autor.setAfiliacao(afiliacaoRepository.findByName(autorInputDTO.getAfiliacao()));
 
                 //Salva o autor atualizado
                 Autor autorAlterado = autorRepository.save(autor);

@@ -32,10 +32,10 @@ public class Autor {
 
     /* Mapeando o campo afiliação para a coluna afiliacaoAutor no banco
     de dados e não pode ser nulo */
-    @Column(name = "afiliacaoAutor", nullable = false)
 
     //Declara o campo afiliação como uma String privada
-    private String afiliacao;
+    @ManyToOne
+    private Afiliacao afiliacao;
 
     /* Fazendo a definição de muitos para muitos entre artigo e autores
     * onde um autor pode ter vários artigos e vice-versa. E mapeando o
@@ -51,9 +51,12 @@ public class Autor {
     }
 
     // Construtor que permite instanciar um objeto Autor
-    public Autor(String nome, String afiliacao) {
+
+    public Autor(Long id, String nome, Afiliacao afiliacao, List<Artigo> artigo) {
+        this.id = id;
         this.nome = nome;
         this.afiliacao = afiliacao;
+        this.artigo = artigo;
     }
 
     /* Metodo para retornar o valor do campo id */
@@ -77,14 +80,17 @@ public class Autor {
     }
 
     /* Metodo para retornar o valor do campo afiliacao */
-    public String getAfiliacao() {
+
+    public Afiliacao getAfiliacao() {
         return afiliacao;
     }
 
     /* Metodo para definir o valor do campo afiliacao */
-    public void setAfiliacao(String afiliacao) {
+    public void setAfiliacao(Afiliacao afiliacao) {
         this.afiliacao = afiliacao;
     }
+
+
 
     /* Metodo para retornar a lista de artigos associados ao autor */
     public List<Artigo> getArtigo() {

@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>AfiliacaoController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+AfiliacaoController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">aranoua</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">avaliacaoFinal</span><span class="s2">.</span><span class="s1">controller</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">aranoua</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">avaliacaoFinal</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">AfiliacaoInputDTO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">aranoua</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">avaliacaoFinal</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">AfiliacaoOutputDTO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">aranoua</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">avaliacaoFinal</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">AutorOutputDTO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">aranoua</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">avaliacaoFinal</span><span class="s2">.</span><span class="s1">service</span><span class="s2">.</span><span class="s1">AfiliacaoService</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">beans</span><span class="s2">.</span><span class="s1">factory</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">Autowired</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">hateoas</span><span class="s2">.</span><span class="s1">EntityModel</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">hateoas</span><span class="s2">.</span><span class="s1">Link</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">hateoas</span><span class="s2">.</span><span class="s1">server</span><span class="s2">.</span><span class="s1">mvc</span><span class="s2">.</span><span class="s1">WebMvcLinkBuilder</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">http</span><span class="s2">.</span><span class="s1">HttpStatus</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">http</span><span class="s2">.</span><span class="s1">MediaType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">http</span><span class="s2">.</span><span class="s1">ResponseEntity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">UriComponents</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">UriComponentsBuilder</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.</span><span class="s1">text</span><span class="s2">.</span><span class="s1">html</span><span class="s2">.</span><span class="s1">parser</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">URI</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s1">@RestController</span>
+<span class="s1">@RequestMapping</span><span class="s2">(</span><span class="s3">&quot;/api/afiliacao&quot;</span><span class="s2">)</span>
+<span class="s0">public class </span><span class="s1">AfiliacaoController </span><span class="s2">{</span>
+    <span class="s1">@Autowired</span>
+    <span class="s0">private </span><span class="s1">AfiliacaoService afiliacaoService</span><span class="s2">;</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s1">produces </span><span class="s2">= </span><span class="s1">MediaType</span><span class="s2">.</span><span class="s1">APPLICATION_JSON_VALUE</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">ResponseEntity</span><span class="s2">&lt;</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">AfiliacaoOutputDTO</span><span class="s2">&gt;&gt; </span><span class="s1">list</span><span class="s2">(){</span>
+        <span class="s1">List </span><span class="s2">&lt;</span><span class="s1">AfiliacaoOutputDTO</span><span class="s2">&gt; </span><span class="s1">afiliacoes </span><span class="s2">= </span><span class="s1">afiliacaoService</span><span class="s2">.</span><span class="s1">lista</span><span class="s2">();</span>
+
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">afiliacoes</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">()){</span>
+            <span class="s0">return new </span><span class="s1">ResponseEntity</span><span class="s2">&lt;&gt;(</span><span class="s1">afiliacoes</span><span class="s2">, </span><span class="s1">HttpStatus</span><span class="s2">.</span><span class="s1">OK</span><span class="s2">);</span>
+        <span class="s2">}</span><span class="s0">else</span><span class="s2">{</span>
+            <span class="s0">return new </span><span class="s1">ResponseEntity</span><span class="s2">&lt;&gt;(</span><span class="s1">HttpStatus</span><span class="s2">.</span><span class="s1">NOT_FOUND</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s1">consumes </span><span class="s2">= </span><span class="s1">MediaType</span><span class="s2">.</span><span class="s1">APPLICATION_JSON_VALUE</span><span class="s2">, </span><span class="s1">produces </span><span class="s2">= </span><span class="s1">MediaType</span><span class="s2">.</span><span class="s1">APPLICATION_JSON_VALUE</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">ResponseEntity</span><span class="s2">&lt;</span><span class="s1">EntityModel</span><span class="s2">&lt;</span><span class="s1">AfiliacaoOutputDTO</span><span class="s2">&gt;&gt; </span><span class="s1">create</span><span class="s2">(</span><span class="s1">@RequestBody AfiliacaoInputDTO afiliacaoInputDTO</span><span class="s2">, </span><span class="s1">UriComponentsBuilder uriComponentsBuilder</span><span class="s2">){</span>
+        <span class="s1">AfiliacaoOutputDTO afiliacaoSalva </span><span class="s2">= </span><span class="s1">afiliacaoService</span><span class="s2">.</span><span class="s1">inserir</span><span class="s2">(</span><span class="s1">afiliacaoInputDTO</span><span class="s2">);</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">afiliacaoSalva </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">){</span>
+            <span class="s1">UriComponents uriComponents </span><span class="s2">= </span><span class="s1">uriComponentsBuilder</span><span class="s2">.</span><span class="s1">path</span><span class="s2">(</span><span class="s3">&quot;/api/afiliacao/{id}&quot;</span><span class="s2">).</span><span class="s1">buildAndExpand</span><span class="s2">(</span><span class="s1">afiliacaoSalva</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
+            <span class="s1">URI uri </span><span class="s2">= </span><span class="s1">uriComponents</span><span class="s2">.</span><span class="s1">toUri</span><span class="s2">();</span>
+
+            <span class="s1">Link selfLink </span><span class="s2">= </span><span class="s1">WebMvcLinkBuilder</span><span class="s2">.</span><span class="s1">linkTo</span><span class="s2">(</span>
+                    <span class="s1">WebMvcLinkBuilder</span><span class="s2">.</span><span class="s1">methodOn</span><span class="s2">(</span><span class="s1">AfiliacaoController</span><span class="s2">.</span><span class="s0">class</span><span class="s2">).</span><span class="s1">list</span><span class="s2">()</span>
+            <span class="s2">).</span><span class="s1">withSelfRel</span><span class="s2">();</span>
+
+            <span class="s1">EntityModel </span><span class="s2">&lt;</span><span class="s1">AfiliacaoOutputDTO</span><span class="s2">&gt; </span><span class="s1">resource </span><span class="s2">= </span><span class="s1">EntityModel</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">afiliacaoSalva</span><span class="s2">, </span><span class="s1">selfLink</span><span class="s2">);</span>
+
+            <span class="s0">return </span><span class="s1">ResponseEntity</span><span class="s2">.</span><span class="s1">created</span><span class="s2">(</span><span class="s1">uri</span><span class="s2">).</span><span class="s1">contentType</span><span class="s2">(</span><span class="s1">MediaType</span><span class="s2">.</span><span class="s1">APPLICATION_JSON</span><span class="s2">).</span><span class="s1">body</span><span class="s2">(</span><span class="s1">resource</span><span class="s2">);</span>
+        <span class="s2">}</span><span class="s0">else </span><span class="s2">{</span>
+
+            <span class="s0">return new </span><span class="s1">ResponseEntity</span><span class="s2">&lt;&gt;(</span><span class="s1">HttpStatus</span><span class="s2">.</span><span class="s1">INTERNAL_SERVER_ERROR</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

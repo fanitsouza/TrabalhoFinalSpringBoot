@@ -83,7 +83,7 @@ public class ArtigoService {
     }
 
 
-    //Metodo alterar para alterar um artigo
+    //Metodo alterar para alterar um artigo, recebe um id e um objeto de entrada para alteração
     public ArtigoOutputDTO alterar(Long id, ArtigoInputDTO artigoInputDTO){
         try {
             //Pesquisando um objeto do tipo artigo através do id
